@@ -4,9 +4,18 @@ const NUMBER_OF_GUESSES = 1;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)]
 
-console.log(rightGuessString)
+
+function post_word(word) {
+
+    // This URL path is going to be the route defined in app.py
+    let theURL='/words/'+word;
+    // This logger is just to keep track of the function call.
+    // You can use such log messages to debug your code if you need.
+    // console.log("Making a RESTful request to the server!")
+    // fetch is a Javascript function that sends a request to a server
+    fetch(theURL)
+}
 
 function initBoard() {
     let board = document.getElementById("game-board");
@@ -37,7 +46,6 @@ function deleteLetter () {
 function checkGuess () {
     let row = document.getElementsByClassName("letter-row")[1 - guessesRemaining]
     let guessString = ''
-    let rightGuess = Array.from(rightGuessString)
 
     for (const val of currentGuess) {
         guessString += val
@@ -52,7 +60,10 @@ function checkGuess () {
         toastr.error("Word not in list!")
         return
     }
-
+    console.log("guessString = " + guessString)
+    post_word(guessString)
+    //document.getElementById("nextpage").click()
+    window.location.href = "index.html"
 }
 
 function insertLetter (pressedKey) {

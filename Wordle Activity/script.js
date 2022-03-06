@@ -4,9 +4,26 @@ const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)]
+//let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)]
+let rightGuessString = ""
 
-console.log(rightGuessString)
+//console.log(rightGuessString)
+
+function get_word(){
+    // Establish the route defined in app.py
+    let theURL='/get_word/'+-1;
+    
+    fetch(theURL)
+    .then(response=>response.json())
+    .then(function(response) {
+        console.log("response: " + response['word'])
+        rightGuessString = response['word']
+    });
+
+}
+
+rightGuessString = get_word()
+console.log("rightGuessString = " + rightGuessString)
 
 function initBoard() {
     let board = document.getElementById("game-board");
